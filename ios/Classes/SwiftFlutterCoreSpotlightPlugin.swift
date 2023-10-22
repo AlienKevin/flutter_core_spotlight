@@ -31,6 +31,9 @@ public class SwiftFlutterCoreSpotlightPlugin: NSObject, FlutterPlugin {
         let item = CSSearchableItem(uniqueIdentifier: "\(itemMap["uniqueIdentifier"] as? String ?? "")",
                                     domainIdentifier: itemMap["domainIdentifier"] as? String ?? "",
                                     attributeSet: attributeSet)
+        // See https://stackoverflow.com/a/57957854/6798201
+        // Prevents the item from expiring "after some time"
+        item.expirationDate = Date.distantFuture
         return item
       }
       CSSearchableIndex.default().indexSearchableItems(searchableItems) { error in
